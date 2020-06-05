@@ -34,6 +34,10 @@ def on_connect(client, userdata, flags, connect_status_code):
 
 # when a PUBLISH message is received from the server:
 def on_message(client, userdata, msg):
+    """
+    print the topic, and call the manager
+    :return: None
+    """
     if msg.topic:
         print("Message broker says: {}".format(msg.topic))
 
@@ -50,7 +54,7 @@ def on_message(client, userdata, msg):
 def call_manager():
     """
     make an api call to the manager service of the framework / app
-    :return: response
+    :return: str
     """
     # Provide URL endpoint of manager service
     base_url = BASE_URL
@@ -58,7 +62,7 @@ def call_manager():
         response = requests.get(base_url)
         return 200 if response.ok else 'not successful'
     else:
-        return "Missing or invalid: URL endpoint of dispatcher service"
+        return "Missing or invalid: URL endpoint of manager service"
 
 
 if __name__ == "__main__":
